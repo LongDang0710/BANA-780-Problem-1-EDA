@@ -20,6 +20,7 @@ superstore_data['Order Date'] = pd.to_datetime(superstore_data['Order Date'], da
 # Set the aesthetic style of the plots
 sns.set_style("whitegrid")
 
+# Descriptive Analytics
 # 1. Total Sales, Profit, and Quantity Sold
 total_sales = superstore_data['Sales'].sum()
 total_profit = superstore_data['Profit'].sum()
@@ -112,6 +113,7 @@ plt.legend(['Sales', 'Profit'])
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.show()
 
+# Diagnostic Analytics
 # Pie Chart: Distribution of Customer Segments
 plt.figure(figsize=(8, 8))
 superstore_data['Segment'].value_counts().plot(
@@ -189,6 +191,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.show()
 
+# Predictive Analytics
 # Aggregate only numeric columns by month for time-series modeling
 monthly_data = superstore_data.groupby(superstore_data['Order Date'].dt.to_period('M')).sum(numeric_only=True)
 monthly_data.index = monthly_data.index.to_timestamp()  # Convert PeriodIndex to Timestamp
@@ -255,6 +258,7 @@ plt.legend()
 plt.grid(alpha=0.7)
 plt.show()
 
+# Prescriptive Analytics
 # **1. Discount Optimization**
 # Evaluate the effect of discounts on profits
 discount_analysis = superstore_data.groupby('Discount').agg(
@@ -274,7 +278,7 @@ plt.legend()
 plt.grid(alpha=0.7)
 plt.show()
 
-# **3. Shipping Optimization**
+# **2. Shipping Optimization**
 # Evaluate profitability across different shipping modes
 shipping_analysis = superstore_data.groupby('Ship Mode').agg(
     Total_Profit=('Profit', 'sum'),
@@ -292,7 +296,7 @@ plt.grid(axis='y', alpha=0.7)
 plt.tight_layout()
 plt.show()
 
-# **4. Inventory Management**
+# **3. Inventory Management**
 # Analyze underperforming products and suggest actions
 low_profit_products = superstore_data.groupby('Product Name')['Profit'].sum().sort_values().head(10)
 low_sales_products = superstore_data.groupby('Product Name')['Sales'].sum().sort_values().head(10)
